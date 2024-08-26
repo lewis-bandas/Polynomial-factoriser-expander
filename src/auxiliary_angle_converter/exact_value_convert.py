@@ -13,10 +13,13 @@ def evaluate(exact_value):
     nums = []
     for segment in segments:
         if re.search("sqrt", segment):
+            is_negative = (segment[0] == "-") 
             num = float(re.sub(".*sqrt([-0-9.]+)[^0-9.-]*", r"\1", segment))
             if num < 0:
                 raise ValueError("Cannot take the square root of a negative number")
-            nums.append(num**0.5)
+            added_num = num**0.5
+            added_num = -added_num if is_negative else added_num
+            nums.append(added_num)
         else:
             nums.append(float(segment))
     if len(nums) == 1:

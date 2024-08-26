@@ -31,12 +31,16 @@ def auxiliary_angle_convert():
     if operation == "-":
         index = re.search("cos|sin", terms[1]).group()
         coefficients[index] = -coefficients[index]
-    r = (surd_value := round(coefficients["sin"]**2 + coefficients["cos"]**2, 5))**0.5
+    r = (surd_value := coefficients["sin"]**2 + coefficients["cos"]**2)**0.5
+    surd_value = round(surd_value, 5)
     if not type(surd_value) is int and surd_value.is_integer():
         surd_value = int(surd_value)
     a_sine = find_auxiliary_sine(coefficients, r)
-    if a_sine - 180.0 > 0.0:
-        a_sine -= 360.0
+    if abs(a_sine) - 180.0 > 0.0:
+        if a_sine > 0:
+            a_sine -= 360.0
+        else:
+            a_sine += 360
         a_sine = round(a_sine, 2)
     '''if we have sin(x + a), the cos equivalent is cos(90 - a - x), and since in 
     this expression we have "-x", it's not in the form cos(x + a). To remedy this,
