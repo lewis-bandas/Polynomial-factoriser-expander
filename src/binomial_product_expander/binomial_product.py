@@ -10,7 +10,8 @@ def print_as_polynomial(final_expanded_result):
             coefficient = int(coefficient)
         print_coefficient = abs(coefficient) if key != ordered_keyset[0] else coefficient
         print_coefficient = "" if print_coefficient == 1 and key != 0 else print_coefficient
-
+        if coefficient == 0:
+            continue
         if key != ordered_keyset[0]:
             print(f" {'-' if coefficient < 0 else '+'} ", end='')
         if key > 1:

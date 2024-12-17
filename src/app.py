@@ -3,15 +3,15 @@ from flask_cors import CORS
 from json import dumps
 from auxiliary_angle_converter.auxiliary_angle import auxiliary_angle_compute
 import sys
-APP = Flask(__name__)
-CORS(APP)
+app = Flask(__name__)
+CORS(app)
 port = 5003
 
-@APP.route("/calculate", methods=['GET'])
+@app.route("/calculate", methods=['GET'])
 def calculate_auxiliary_angle():
     data = request.args
-    return dumps(auxiliary_angle_compute(data.get("expression"), True, int(data.get("decimal_places"))))
+    return dumps(auxiliary_angle_compute(data.get("expression"), True, int(data.get("decimal_places")), data.get("in_radians")))
     
 if __name__ == "__main__":
-    APP.run(host='172.19.92.80', port=port, threaded=True)
+    app.run(host='0.0.0.0', port=port, threaded=True)
     
